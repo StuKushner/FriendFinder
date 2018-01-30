@@ -161,44 +161,67 @@
 		</footer>
 	</div>
 
-	<script type="text/javascript">
+<script type="text/javascript">
 	$(document).ready(function(){
 		$("#submit-btn").on("click", function(){
-			var newFriend = {
-				name: $("#usr").val().trim(),
-				photo: $("#img").val().trim(),
-				scores: [
-					$("#q1").val(),
-					$("#q2").val(),
-					$("#q3").val(),
-					$("#q4").val(),
-					$("#q5").val(),
-					$("#q6").val(),
-					$("#q7").val(),
-					$("#q8").val(),
-					$("#q9").val(),
-					$("#q10").val(),
-				]
-			};
+			function formValidate() {
+				var isValid = true;
+				$(".form-control").each(function(){
+					if ($(this).val() === '') {
+						isValid = false;
+					}
+				});
 
-			var url = window.location.origin;
+				$(".custom-select").each(function(){
+					if ($(this).val() === "") {
+						isValid = false;
+					}
+				});
+				return isValid;
+			}
 
-			$.post(url + "/api/friends", newFriend, function(data){
-				$("#bestFriendName").text(data.name);
-				$("#bestFriendPicture").attr("src", data.photo);
-			});
-			$("#friendModal").modal();
+			if (formValidate() == true) {
+				var newFriend = {
+					name: $("#usr").val().trim(),
+					photo: $("#img").val().trim(),
+					scores: [
+						$("#q1").val(),
+						$("#q2").val(),
+						$("#q3").val(),
+						$("#q4").val(),
+						$("#q5").val(),
+						$("#q6").val(),
+						$("#q7").val(),
+						$("#q8").val(),
+						$("#q9").val(),
+						$("#q10").val(),
+					]
+				};
 
-			$("#q1").val("");
-			$("#q2").val("");
-			$("#q3").val("");
-			$("#q4").val("");
-			$("#q5").val("");
-			$("#q6").val("");
-			$("#q7").val("");
-			$("#q8").val("");
-			$("#q9").val("");
-			$("#q10").val("");
+				var url = window.location.origin;
+
+				$.post(url + "/api/friends", newFriend, function(data){
+					$("#bestFriendName").text(data.name);
+					$("#bestFriendPicture").attr("src", data.photo);
+				});
+
+				$("#friendModal").modal();
+
+				$("#usr").val("");
+				$("#img").val("");		
+				$("#q1").val("");
+				$("#q2").val("");
+				$("#q3").val("");
+				$("#q4").val("");
+				$("#q5").val("");
+				$("#q6").val("");
+				$("#q7").val("");
+				$("#q8").val("");
+				$("#q9").val("");
+				$("#q10").val("");
+			} else {
+				alert("Please fill in all forms before submitting!");
+			}
 		});
 	});
 	</script>
