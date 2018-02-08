@@ -1,3 +1,4 @@
+// A filler data object to be used throughout the app.
 var friendsData = [
 	{
 		"name": "Alex",
